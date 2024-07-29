@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="./favicon.png" type="image/x-icon">
+    <link rel="stylesheet" href="./css/reset.css">
+    <link rel="stylesheet" href="./css/jquery.bxslider.css">
+    <title>할리스</title>
+    <style>
+        @font-face {
+            font-family:'Noto Sans KR';
+            src: url(./fonts/NotoSansKR-VariableFont_wght.ttf);
+        }
+        :root{
+            --main-color:#b5121b;            
+            --gray01:#303030;
+            --gray02:#666;
+            --gray03:#808080;
+            --gray04:#f7f7f7;
+            font-weight:400;
+            font-size:14px;
+            line-height:1;
+            color:var(--gray01);
+        }
+        .wrap{
+            width:360px;
+            margin:0 auto;             
+            overflow:hidden;  
+        }
+        .container{
+            width:340px;
+            margin:0 auto;
+        }
+        .wide-container{
+            width:360px;
+        }
+        /* header style */
+        .header{
+            position:relative;
+            z-index:1000;
+            padding:14px 0;
+            background:var(--main-color);
+        }
+        .header .container::before{
+            content:'';
+            display:block;
+            float:left;
+            width:19px;
+            height:2px;
+        }
+        .header h1{
+            float:left;
+            width:302px;
+        }
+        .header h1 a{
+            display:block;
+            width:78px;
+            height:17px;
+            margin:0 auto;
+            background:url(./images/logo.png) no-repeat center;
+            background-size:contain;
+            text-indent:-9999px;
+        }
+        .header .btn-nav{
+            float:right;
+            width:19px;
+        }
+        .header .nav{
+            display:none;
+            position:absolute;
+            left:0;
+            right:0;
+            top:45px;
+            padding:10px;
+            background:var(--gray02);
+            color:#fff;
+            text-transform:uppercase;
+        }
+        .header .nav li{
+            margin-bottom:16px;
+            padding-left:12px;
+            position:relative;
+        }
+        .header .nav li:last-child{
+            margin-bottom:0;
+        }
+        .header .nav li::before{
+            content:'';
+            display:block;
+            width:6px;
+            height:6px;            
+            border:3px solid transparent;            
+            border-left-color:#fff;
+            position:absolute;
+            left:0;
+            top:4px;
+        }
+        /* aside style */
+        .aside{
+            position:fixed;
+            left:10px;
+            top:10px;
+            z-index:1001;
+        }
+        .aside a{
+            display:block;
+            width:70px;
+            height:25px;
+            border-radius:12.5px;
+            background:#c5a46e;
+            font-weight:500;
+            font-size:12px;
+            text-align:center;
+            line-height:25px;
+            color:#fff;
+        }
+
+        /* main-banner style */
+        .main-banner{
+            position:relative;
+            z-index:999;
+        }
+        .bx-wrapper {
+            -moz-box-shadow:none;
+            -webkit-box-shadow:none;
+            box-shadow:none;
+            border:none;
+            background:none;
+            margin-bottom:0;
+        }
+        .bx-wrapper .bx-pager{
+            bottom:12px;
+        }
+        .bx-wrapper .bx-pager.bx-default-pager a {
+            width:7px;
+            height:7px;
+            margin:0 3px;
+            background:#d9d9d9;
+        }
+        .bx-wrapper .bx-pager.bx-default-pager a.active{
+            background:var(--main-color);
+        }
+
+
+
+        /* q-icons style */
+        .q-icons{
+            padding:16px 0;
+        }
+        .q-icons li{
+            float:left;
+            width:85px;
+        }
+        .q-icons li a{
+            display:block;
+        }
+        .q-icons li a .img-box{
+            width:35px;
+            margin:0 auto 10px;
+        }
+        .q-icons li a p{
+            text-align:center;
+        }
+
+        /* sub-banner style */
+        .sub-banner li{
+            margin:4px 0;
+        }
+        /* notice style */
+        .notice{
+            padding:16px 0;
+        }
+        .notice-top{margin-bottom:16px;}
+        .notice-top h2,.notice-tit{float:left;}
+        .notice-top a,.notice-date{float:right;}
+        .notice-top h2{font-weight:900;}
+        .notice-top a{
+            display:block;
+            padding-right:12px;
+            font-weight:900;
+            font-size:12px;
+            color:var(--main-color);
+            position:relative;
+        }
+        .notice-top a::after{
+            content:'';
+            display:block;
+            width:6px;
+            height:6px;            
+            border:3px solid transparent;            
+            border-left-color:var(--main-color);
+            position:absolute;
+            right:0;
+            top:5px;
+        }
+
+
+
+
+        /* footer style */
+        .footer{
+            padding:70px 0 54px;
+            background:var(--main-color);
+            color:#fff;
+            position:relative;
+        }
+        .footer .footer-nav01{
+            position:absolute;
+            left:0;
+            right:0;
+            top:0;
+            border-top:2px solid var(--gray03);
+            border-bottom:1px solid var(--gray03);
+            background:var(--gray04);
+            padding:18px 0;
+        }
+        .footer .footer-nav01 li{
+            float:left;
+            width:180px;            
+            font-weight:700;
+            font-size:16px;
+            color:var(--gray01);
+            text-align:center;
+        }
+        .footer .footer-nav01 li:first-child{
+            border-right:1px solid var(--gray03);
+        }
+        .footer .footer-nav02{
+            margin-bottom:16px;
+            text-align:center;
+            font-size:12px;
+            line-height:1.5;
+        }
+        .footer .footer-nav02 a{
+            margin:5px;
+        }
+        .footer address{
+            font-size:12px;
+            line-height:1.2;
+        }
+    </style>
+</head>
+<body>
+    <section class="wrap">
+        <header class="header">
+            <div class="container clearfix">
+                <h1><a href="./index.html">할리스</a></h1>
+                <div class="btn-nav" id="btn-nav"><img src="./images/btn-nav.png" alt="nav button"></div>
+                <nav class="nav" id="toggle-nav">
+                    <ul class="main-nav">
+                        <li><a href="#">my hollys</a></li>
+                        <li><a href="#">menu</a></li>
+                        <li><a href="#">hollys mall</a></li>
+                        <li><a href="#">membership</a></li>
+                        <li><a href="#">hollys news</a></li>
+                        <li><a href="#">store</a></li>
+                        <li><a href="#">hollys is</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+        <aside class="aside">
+            <a href="#">가맹문의</a>
+        </aside>
+        <section class="sec sec01 main-banner">
+            <div class="container wide-container">
+                <ul class="slider">
+                    <li><a href="#"><img src="./images/main-banner01.jpg" alt="main-banner01"></a></li>
+                    <li><a href="#"><img src="./images/main-banner02.jpg" alt="main-banner02"></a></li>
+                    <li><a href="#"><img src="./images/main-banner03.jpg" alt="main-banner03"></a></li>
+                    <li><a href="#"><img src="./images/main-banner04.jpg" alt="main-banner04"></a></li>
+                </ul>
+            </div>
+        </section>
+        <section class="sec sec02 q-icons">
+            <div class="container">
+                <ul class="clearfix">
+                    <li>
+                        <a href="#">
+                            <div class="img-box"><img src="./images/ico-menu01.jpg" alt="menu01"></div>
+                            <p>Hollys mall</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <div class="img-box"><img src="./images/ico-menu02.jpg" alt="menu02"></div>
+                            <p>Menu</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <div class="img-box"><img src="./images/ico-menu03.jpg" alt="menu03"></div>
+                            <p>Store</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <div class="img-box"><img src="./images/ico-menu04.jpg" alt="menu04"></div>
+                            <p>Membership</p>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </section>
+        <section class="sec sec03 sub-banner">
+            <div class="container wide-container">
+                <ul>
+                    <li><a href="#"><img src="./images/img-banner01.jpg" alt="sub01"></a></li>
+                    <li><a href="#"><img src="./images/img-banner02.jpg" alt="sub02"></a></li>
+                    <li><a href="#"><img src="./images/img-banner03.jpg" alt="sub03"></a></li>
+                    <li><a href="#"><img src="./images/img-banner04.jpg" alt="sub04"></a></li>
+                    <li><a href="#"><img src="./images/img-banner05.jpg" alt="sub05"></a></li>
+                </ul>
+            </div>
+        </section>
+        <section class="sec sec04 notice">
+            <div class="container">
+                <div class="notice-top clearfix">
+                    <h2>Notice</h2>
+                    <a href="#">more</a>
+                </div>
+                <ul class="clearfix">
+                    <li class="notice-tit"><a href="#">개인정보 처리방침 개정안내</a></li>
+                    <li class="notice-date"><a href="#">2024-06-24</a></li>
+                </ul>
+            </div>
+        </section>
+        <footer class="footer">
+            <div class="container">
+                <ul class="clearfix footer-nav01">
+                    <li><a href="#">가맹문의 절차</a></li>
+                    <li><a href="#">이벤트</a></li>
+                </ul>
+                <div class="footer-nav02">
+                    <a href="#">개인정보 처리방침</a>
+                    <a href="#">서비스 이용약관</a>
+                    <a href="#">멤버십 이용약관</a>
+                    <a href="#">할리스카드이용약관</a>
+                    <a href="#">고객문의</a>
+                    <a href="#">고객설문</a>
+                    <a href="#">사이트맵</a>
+                    <a href="#">BI 소개</a>                    
+                    <a href="https://pam7461.github.io/hollys/">PC버전</a>
+                </div>
+                <address>
+                    법인명: (주) 케이지할리스에프앤비 대표자: 이종현 사업자등록번호 211-87-61044 통신판매업: 제2019-서울종로-0193호<br>
+                    주소 : 서울특별시 중구 통일로 92, 9층(순화동, 케이지타워) 대표전화 : 02-2188-7100 (가맹문의 : 02-6350-7229)<br>            
+                    COPYRIGHT (C) KG HOLLYS F&B. All Rights Reserved. 
+                </address>
+            </div>
+        </footer>
+    </section>
+
+
+    <script src="./js/jquery-3.1.1.min.js"></script>
+    <script src="./js/jquery.bxslider.js"></script>
+    <script>
+        $('.slider').bxSlider();
+        $('#btn-nav').click(function(){
+            $('#toggle-nav').slideToggle();
+        })
+        
+
+    </script>
+</body>
+</html>
